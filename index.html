@@ -12,7 +12,7 @@
 <header class="header"><div class="hi"><div class="logo"><div class="li">⚽</div><div class="lt"><h1>777 扫盘中心</h1><span>Football Scan & Review</span></div></div><div class="hs"><div class="si"><div class="sv" id="w">0</div><div class="sl">命中</div></div><div class="si"><div class="sv l" id="l">0</div><div class="sl">黑掉</div></div><div class="si"><div class="sv p" id="p">0</div><div class="sl">走水</div></div><div class="si"><div class="sv" id="r">0%</div><div class="sl">命中率</div></div></div></div></header>
 <div class="ctrl"><button class="fb a" onclick="f('all')">全部</button><button class="fb" onclick="f('heart')">重心胆</button><button class="fb" onclick="f('win')">命中</button><button class="fb" onclick="f('loss')">黑掉</button><button class="fb" onclick="f('today')">今日</button></div>
 <main class="main" id="main"><div class="loading">⏳ 正在加载数据...</div></main>
-<div class="ft">777 扫盘系统 | 数据驱动决策 | 理性投注</div>
+<div class="ft">777 扫盘系统 | 数据驱动决策 | 理性投注<br><span id="sync-info" style="color:var(--s);font-size:10px;margin-top:4px;display:block">同步来源: 飞书多维表格 | 上次更新: 加载中...</span></div>
 <script>
 let rawData=[],flatMatches=[];
 function render(filter='all'){
@@ -50,7 +50,7 @@ function stats(m){
   document.getElementById('r').textContent=de>0?Math.round(w/de*100)+'%':'0%';
 }
 function f(x){document.querySelectorAll('.fb').forEach(b=>b.classList.remove('a'));event.target.classList.add('a');render(x);}
-fetch('data.json').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(d=>{rawData=d.matches||[];flatMatches=rawData.flatMap(g=>g.items);render('all');}).catch(e=>{document.getElementById('main').innerHTML='<div class="error">❌ 数据加载失败: '+e.message+'</div>';console.error(e);});
+fetch('data.json').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(d=>{rawData=d.matches||[];flatMatches=rawData.flatMap(g=>g.items);render('all');const info=document.getElementById('sync-info');if(info&&d.lastUpdated){const dt=new Date(d.lastUpdated);info.textContent='同步来源: '+(d.source||'本地')+' | 上次更新: '+dt.toLocaleString('zh-CN');}}).catch(e=>{document.getElementById('main').innerHTML='<div class="error">❌ 数据加载失败: '+e.message+'</div>';console.error(e);});
 </script>
 </body>
 </html>
