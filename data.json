@@ -1,6 +1,6 @@
 {
-  "version": "2.1",
-  "lastUpdated": "2026-05-12T15:05:00Z",
+  "version": "2.0",
+  "lastUpdated": "2026-05-12T15:30:00Z",
   "source": "777扫盘中心 (Feishu Sync)",
   "matches": [
     {
@@ -8,8 +8,10 @@
       "items": [
         {"id": "001", "time": "18:30", "league": "韩职", "home": "仁川联", "away": "浦项制铁", "homeEmoji": "🇰🇷", "awayEmoji": "🇰🇷", "prediction": "浦项制铁不败", "confidence": "⭐⭐ Low", "odds": "1.65-1.90", "dreamScore": "0-1 / 1-1 / 0-0", "isHeart": false, "score": "-", "result": "pending", "review": "仁川联伤停3主力，规则E触发强制Low，矩阵冲突"},
         {"id": "002", "time": "18:30", "league": "韩职", "home": "光州FC", "away": "首尔FC", "homeEmoji": "🇰🇷", "awayEmoji": "🇰🇷", "prediction": "首尔FC胜", "confidence": "⭐⭐⭐ Medium", "odds": "1.50-1.75", "dreamScore": "0-2 / 1-2 / 0-3", "isHeart": false, "score": "-", "result": "pending", "review": "排名差11位，光州场均失3.2球，首尔强势"},
-        {"id": "011", "time": "01:00", "league": "西甲", "home": "塞尔塔", "away": "莱万特", "homeEmoji": "🔵", "awayEmoji": "🔵", "prediction": "BTTS Yes", "confidence": "⭐⭐⭐", "odds": "@1.75", "isHeart": true, "score": "-", "result": "pending", "review": "重心胆：塞尔塔中卫Starfelt缺阵，防线重组；莱万特保级拼命必反击。"},
-        {"id": "012", "time": "02:00", "league": "西甲", "home": "贝蒂斯", "away": "埃尔切", "homeEmoji": "🟢", "awayEmoji": "⚪", "prediction": "BTTS Yes", "confidence": "⭐⭐", "odds": "@1.65", "isHeart": true, "score": "-", "result": "pending", "review": "重心胆：贝蒂斯Bartra缺阵+Natan疑，中卫真空；埃尔切降级队有反击能力。"}
+        {"id": "003", "time": "01:00", "league": "西甲", "home": "塞尔塔", "away": "莱万特", "homeEmoji": "🔵", "awayEmoji": "🔵", "prediction": "塞尔塔胜", "confidence": "⭐⭐⭐ Medium", "odds": "1.60-1.85", "dreamScore": "2-1 / 2-0 / 1-0", "isHeart": false, "score": "-", "result": "pending", "review": "塞尔塔主场冲击欧冠席位，莱万特客场7场不胜+伤病4人"},
+        {"id": "004", "time": "02:00", "league": "沙职", "home": "利雅得胜利", "away": "利雅得新月", "homeEmoji": "🟡", "awayEmoji": "🔵", "prediction": "新月不败（平+负）", "confidence": "⭐⭐⭐ Medium", "odds": "1.70-2.00", "dreamScore": "1-1 / 1-2 / 2-2", "isHeart": false, "score": "-", "result": "pending", "review": "新月赛季不败，交锋占优，胜利防线伤病隐患"},
+        {"id": "005", "time": "02:00", "league": "西甲", "home": "贝蒂斯", "away": "埃尔切", "homeEmoji": "🟢", "awayEmoji": "⚪", "prediction": "贝蒂斯胜", "confidence": "⭐⭐⭐⭐ High", "odds": "1.40-1.65", "dreamScore": "2-0 / 2-1 / 3-1", "isHeart": true, "score": "-", "result": "pending", "review": "贝蒂斯争欧冠战意强烈，埃尔切客场虫+保级压力"},
+        {"id": "006", "time": "02:30", "league": "法甲", "home": "圣旺红星", "away": "罗德兹", "homeEmoji": "🔴", "awayEmoji": "🔴", "prediction": "红星不败（平+胜）", "confidence": "⭐⭐⭐ Medium", "odds": "1.55-1.80", "dreamScore": "1-1 / 1-0 / 2-1", "isHeart": false, "score": "-", "result": "pending", "review": "红星主场交锋6场不败，罗德兹客场9场不败，平局概率高"}
       ]
     },
     {
