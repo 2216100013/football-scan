@@ -6,8 +6,8 @@
     {
       "date": "2026-05-12",
       "items": [
-        {"id": "001", "time": "18:30", "league": "韩职", "home": "仁川联", "away": "浦项制铁", "homeEmoji": "🇰🇷", "awayEmoji": "🇰🇷", "prediction": "浦项制铁不败", "confidence": "⭐⭐ Low", "odds": "1.65-1.90", "isHeart": false, "score": "-", "result": "pending", "review": "仁川联伤停3主力，规则E触发强制Low，矩阵冲突"},
-        {"id": "002", "time": "18:30", "league": "韩职", "home": "光州FC", "away": "首尔FC", "homeEmoji": "🇰🇷", "awayEmoji": "🇰🇷", "prediction": "首尔FC胜", "confidence": "⭐⭐⭐ Medium", "odds": "1.50-1.75", "isHeart": false, "score": "-", "result": "pending", "review": "排名差11位，光州场均失3.2球，首尔强势"},
+        {"id": "001", "time": "18:30", "league": "韩职", "home": "仁川联", "away": "浦项制铁", "homeEmoji": "🇰🇷", "awayEmoji": "🇰🇷", "prediction": "浦项制铁不败", "confidence": "⭐⭐ Low", "odds": "1.65-1.90", "dreamScore": "0-1 / 1-1 / 0-0", "isHeart": false, "score": "-", "result": "pending", "review": "仁川联伤停3主力，规则E触发强制Low，矩阵冲突"},
+        {"id": "002", "time": "18:30", "league": "韩职", "home": "光州FC", "away": "首尔FC", "homeEmoji": "🇰🇷", "awayEmoji": "🇰🇷", "prediction": "首尔FC胜", "confidence": "⭐⭐⭐ Medium", "odds": "1.50-1.75", "dreamScore": "0-2 / 1-2 / 0-3", "isHeart": false, "score": "-", "result": "pending", "review": "排名差11位，光州场均失3.2球，首尔强势"},
         {"id": "011", "time": "01:00", "league": "西甲", "home": "塞尔塔", "away": "莱万特", "homeEmoji": "🔵", "awayEmoji": "🔵", "prediction": "BTTS Yes", "confidence": "⭐⭐⭐", "odds": "@1.75", "isHeart": true, "score": "-", "result": "pending", "review": "重心胆：塞尔塔中卫Starfelt缺阵，防线重组；莱万特保级拼命必反击。"},
         {"id": "012", "time": "02:00", "league": "西甲", "home": "贝蒂斯", "away": "埃尔切", "homeEmoji": "🟢", "awayEmoji": "⚪", "prediction": "BTTS Yes", "confidence": "⭐⭐", "odds": "@1.65", "isHeart": true, "score": "-", "result": "pending", "review": "重心胆：贝蒂斯Bartra缺阵+Natan疑，中卫真空；埃尔切降级队有反击能力。"}
       ]
