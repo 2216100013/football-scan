@@ -1,0 +1,99 @@
+name: Sync Feishu Data
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # 每15分钟执行一次
+  workflow_dispatch:        # 支持手动触发
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        
+      - name: Fetch data from Feishu
+        run: |
+          # 获取 tenant_access_token
+          TOKEN_RESPONSE=$(curl -s -X POST https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal \
+            -H "Content-Type: application/json" \
+            -d '{"app_id":"${{ secrets.FEISHU_APP_ID }}","app_secret":"${{ secrets.FEISHU_APP_SECRET }}"}')
+          
+          TENANT_TOKEN=$(echo $TOKEN_RESPONSE | python3 -c "import sys,json; print(json.load(sys.stdin)['tenant_access_token'])")
+          
+          # 拉取多维表格数据
+          curl -s -H "Authorization: Bearer $TENANT_TOKEN" \
+            "https://open.feishu.cn/open-apis/bitable/v1/apps/${{ secrets.FEISHU_APP_TOKEN }}/tables/${{ secrets.FEISHU_TABLE_ID }}/records?page_size=500" \
+            > raw.json
+            
+      - name: Transform to data.json
+        run: |
+          python3 << 'EOF'
+          import json
+          from datetime import datetime
+          
+          with open('raw.json', 'r') as f:
+            raw = json.load(f)
+          
+          if not raw.get('data', {}).get('items'):
+            print("No data found")
+            exit(1)
+          
+          records = raw['data']['items']
+          matches = {}
+          
+          for r in records:
+            f = r.get('fields', {})
+            
+            # 处理日期（毫秒时间戳转字符串）
+            date_val = f.get('日期', 0)
+            if isinstance(date_val, (int, float)):
+              date_str = datetime.fromtimestamp(date_val / 1000).strftime('%Y-%m-%d')
+            else:
+              date_str = str(date_val)
+            
+            if date_str not in matches:
+              matches[date_str] = {"date": date_str, "items": []}
+            
+            # 处理文本字段（可能是数组对象或字符串）
+            def get_text(val):
+              if isinstance(val, list) and len(val) > 0:
+                return val[0].get('text', '') if isinstance(val[0], dict) else str(val[0])
+              return str(val) if val else ''
+            
+            matches[date_str]['items'].append({
+              "id": get_text(f.get('场次编号', '')),
+              "time": get_text(f.get('时间', '')),
+              "league": get_text(f.get('联赛', '')),
+              "home": get_text(f.get('主队', '')),
+              "away": get_text(f.get('客队', '')),
+              "homeEmoji": get_text(f.get('主队emoji', '')),
+              "awayEmoji": get_text(f.get('客队emoji', '')),
+              "prediction": get_text(f.get('预测', '')),
+              "confidence": get_text(f.get('信心度', '')),
+              "odds": get_text(f.get('赔率', '')),
+              "isHeart": bool(f.get('是否重心胆', False)),
+              "score": get_text(f.get('比分', '-')),
+              "result": get_text(f.get('结果', 'pending')),
+              "review": get_text(f.get('复盘', ''))
+            })
+          
+          # 按日期排序
+          sorted_matches = sorted(matches.values(), key=lambda x: x['date'])
+          
+          output = {
+            "version": "2.0",
+            "lastUpdated": datetime.now().isoformat(),
+            "source": "777扫盘中心 (Feishu Sync)",
+            "matches": sorted_matches
+          }
+          
+          with open('data.json', 'w', encoding='utf-8') as f:
+            json.dump(output, f, ensure_ascii=False, indent=2)
+          
+          print(f"Generated data.json with {len(records)} records")
+          EOF
+          
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add data.json
+          git diff --cached --quiet || (git commit -m "auto: sync from Feishu $(date +'%Y-%m-%d %H:%M')" && git push)
