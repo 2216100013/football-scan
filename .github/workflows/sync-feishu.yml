@@ -1,0 +1,81 @@
+name: Sync Feishu Data
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # 每小时执行一次
+  workflow_dispatch:  # 支持手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Fetch data from Feishu
+        run: |
+          curl -s -H "Authorization: Bearer ${{ secrets.FEISHU_TOKEN }}" \
+            "https://open.feishu.cn/open-apis/bitable/v1/apps/${{ secrets.FEISHU_APP_TOKEN }}/tables/${{ secrets.FEISHU_TABLE_ID }}/records?page_size=500" \
+            > raw.json
+            
+      - name: Transform to data.json
+        run: |
+          node -e "
+          const fs = require('fs');
+          const raw = JSON.parse(fs.readFileSync('raw.json', 'utf8'));
+          
+          if (!raw.data || !raw.data.items) {
+            console.error('No data found');
+            process.exit(1);
+          }
+          
+          const records = raw.data.items;
+          const matches = {};
+          
+          records.forEach(r => {
+            const f = r.fields;
+            const date = new Date(f.日期).toISOString().split('T')[0];
+            
+            if (!matches[date]) {
+              matches[date] = { date, items: [] };
+            }
+            
+            matches[date].items.push({
+              id: f.场次编号,
+              time: f.时间,
+              league: f.联赛,
+              home: f.主队,
+              away: f.客队,
+              homeEmoji: f.主队emoji,
+              awayEmoji: f.客队emoji,
+              prediction: f.预测,
+              confidence: f.信心度,
+              odds: f.赔率,
+              isHeart: f.是否重心胆,
+              score: f.比分,
+              result: f.结果,
+              review: f.复盘
+            });
+          });
+          
+          const output = {
+            version: '2.0',
+            lastUpdated: new Date().toISOString(),
+            source: '777扫盘中心',
+            matches: Object.values(matches).sort((a, b) => a.date.localeCompare(b.date))
+          };
+          
+          fs.writeFileSync('data.json', JSON.stringify(output, null, 2));
+          console.log('Generated data.json with', records.length, 'records');
+          "
+          
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add data.json
+          git diff --cached --quiet || (git commit -m "auto: sync from Feishu $(date +'%Y-%m-%d %H:%M')" && git push)
