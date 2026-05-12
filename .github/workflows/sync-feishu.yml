@@ -10,6 +10,7 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
+      
       - name: Fetch data from Feishu
         run: |
           # 获取 tenant_access_token
@@ -17,12 +18,30 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"app_id":"${{ secrets.FEISHU_APP_ID }}","app_secret":"${{ secrets.FEISHU_APP_SECRET }}"}')
           
-          TENANT_TOKEN=$(echo $TOKEN_RESPONSE | python3 -c "import sys,json; print(json.load(sys.stdin)['tenant_access_token'])")
+          echo "Token response: $TOKEN_RESPONSE"
+          
+          TENANT_TOKEN=$(echo $TOKEN_RESPONSE | python3 -c "import sys,json; data=json.load(sys.stdin); print(data.get('tenant_access_token', ''))" 2>&1 || echo "")
+          
+          if [ -z "$TENANT_TOKEN" ]; then
+            echo "❌ 获取租户token失败"
+            exit 1
+          fi
+          
+          echo "✓ Token获取成功: ${TENANT_TOKEN:0:10}..."
           
           # 拉取多维表格数据
-          curl -s -H "Authorization: Bearer $TENANT_TOKEN" \
-            "https://open.feishu.cn/open-apis/bitable/v1/apps/${{ secrets.FEISHU_APP_TOKEN }}/tables/${{ secrets.FEISHU_TABLE_ID }}/records?page_size=500" \
-            > raw.json
+          HTTP_CODE=$(curl -s -w "%{http_code}" -o raw.json \
+            -H "Authorization: Bearer $TENANT_TOKEN" \
+            "https://open.feishu.cn/open-apis/bitable/v1/apps/${{ secrets.FEISHU_APP_TOKEN }}/tables/${{ secrets.FEISHU_TABLE_ID }}/records?page_size=500")
+          
+          echo "HTTP Status Code: $HTTP_CODE"
+          echo "API Response:"
+          cat raw.json
+          
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "❌ API请求失败，状态码: $HTTP_CODE"
+            exit 1
+          fi
             
       - name: Transform to data.json
         run: |
@@ -33,8 +52,15 @@ jobs:
           with open('raw.json', 'r') as f:
             raw = json.load(f)
           
+          print(f"Raw data structure: {json.dumps(raw, indent=2, ensure_ascii=False)}")
+          
           if not raw.get('data', {}).get('items'):
-            print("No data found")
+            print("❌ 未找到数据")
+            print(f"Available keys: {list(raw.keys())}")
+            if 'code' in raw:
+              print(f"Error code: {raw['code']}")
+            if 'msg' in raw:
+              print(f"Error message: {raw['msg']}")
             exit(1)
           
           records = raw['data']['items']
@@ -89,7 +115,7 @@ jobs:
           with open('data.json', 'w', encoding='utf-8') as f:
             json.dump(output, f, ensure_ascii=False, indent=2)
           
-          print(f"Generated data.json with {len(records)} records")
+          print(f"✓ 成功生成data.json，共{len(records)}条记录")
           EOF
           
       - name: Commit and push
