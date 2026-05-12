@@ -1,8 +1,17 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-05-12T13:48:00Z",
+  "lastUpdated": "2026-05-12T14:30:00Z",
   "source": "777扫盘中心 (Feishu Sync)",
   "matches": [
+    {
+      "date": "2026-05-12",
+      "items": [
+        {"id": "001", "time": "18:30", "league": "韩职", "home": "仁川联", "away": "浦项制铁", "homeEmoji": "🇰🇷", "awayEmoji": "🇰🇷", "prediction": "浦项制铁不败", "confidence": "⭐⭐ Low", "odds": "1.65-1.90", "isHeart": false, "score": "-", "result": "pending", "review": "仁川联伤停3主力，规则E触发强制Low，矩阵冲突"},
+        {"id": "002", "time": "18:30", "league": "韩职", "home": "光州FC", "away": "首尔FC", "homeEmoji": "🇰🇷", "awayEmoji": "🇰🇷", "prediction": "首尔FC胜", "confidence": "⭐⭐⭐ Medium", "odds": "1.50-1.75", "isHeart": false, "score": "-", "result": "pending", "review": "排名差11位，光州场均失3.2球，首尔强势"},
+        {"id": "011", "time": "01:00", "league": "西甲", "home": "塞尔塔", "away": "莱万特", "homeEmoji": "🔵", "awayEmoji": "🔵", "prediction": "BTTS Yes", "confidence": "⭐⭐⭐", "odds": "@1.75", "isHeart": true, "score": "-", "result": "pending", "review": "重心胆：塞尔塔中卫Starfelt缺阵，防线重组；莱万特保级拼命必反击。"},
+        {"id": "012", "time": "02:00", "league": "西甲", "home": "贝蒂斯", "away": "埃尔切", "homeEmoji": "🟢", "awayEmoji": "⚪", "prediction": "BTTS Yes", "confidence": "⭐⭐", "odds": "@1.65", "isHeart": true, "score": "-", "result": "pending", "review": "重心胆：贝蒂斯Bartra缺阵+Natan疑，中卫真空；埃尔切降级队有反击能力。"}
+      ]
+    },
     {
       "date": "2026-05-11",
       "items": [
@@ -14,13 +23,6 @@
         {"id": "006", "time": "03:00", "league": "英冠", "home": "米尔沃尔", "away": "赫尔城", "homeEmoji": "🔵", "awayEmoji": "🟠", "prediction": "让球胜/搏平", "confidence": "⭐⭐⭐", "odds": "@1.90", "isHeart": false, "score": "0-2", "result": "loss", "review": "米尔沃尔0-2完败，推荐黑掉。主场优势未兑现，进攻端哑火。"},
         {"id": "007", "time": "03:00", "league": "西甲", "home": "巴列卡诺", "away": "赫罗纳", "homeEmoji": "⚪", "awayEmoji": "🔴", "prediction": "平（首选）/让球胜", "confidence": "⭐⭐⭐", "odds": "@2.10", "isHeart": false, "score": "1-1", "result": "win", "review": "1-1平局命中！双方实力接近，巴列卡诺主场守平。"},
         {"id": "008", "time": "03:15", "league": "葡超", "home": "里奥阿维", "away": "葡萄牙体育", "homeEmoji": "🔴", "awayEmoji": "🟢", "prediction": "让球胜/搏平", "confidence": "⭐⭐⭐", "odds": "@1.85", "isHeart": false, "score": "1-4", "result": "loss", "review": "里奥阿维1-4惨败，让球负黑掉。Sporting客场火力全开，实力碾压。"}
-      ]
-    },
-    {
-      "date": "2026-05-12",
-      "items": [
-        {"id": "011", "time": "01:00", "league": "西甲", "home": "塞尔塔", "away": "莱万特", "homeEmoji": "🔵", "awayEmoji": "🔵", "prediction": "BTTS Yes", "confidence": "⭐⭐⭐", "odds": "@1.75", "isHeart": true, "score": "-", "result": "pending", "review": "重心胆：塞尔塔中卫Starfelt缺阵，防线重组；莱万特保级拼命必反击。"},
-        {"id": "012", "time": "02:00", "league": "西甲", "home": "贝蒂斯", "away": "埃尔切", "homeEmoji": "🟢", "awayEmoji": "⚪", "prediction": "BTTS Yes", "confidence": "⭐⭐", "odds": "@1.65", "isHeart": true, "score": "-", "result": "pending", "review": "重心胆：贝蒂斯Bartra缺阵+Natan疑，中卫真空；埃尔切降级队有反击能力。"}
       ]
     }
   ]
