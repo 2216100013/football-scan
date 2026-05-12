@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: '*/15 * * * *'  # 每15分钟执行一次
   workflow_dispatch:        # 支持手动触发
+permissions:
+  contents: write  # ← 添加这一行  
 jobs:
   sync:
     runs-on: ubuntu-latest
