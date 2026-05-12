@@ -83,7 +83,7 @@ function reloadData(){
     alert('✅ 数据已刷新！');
   }).catch(e=>{document.getElementById('main').innerHTML='<div class="error">❌ 数据刷新失败: '+e.message+'</div>';console.error(e);});
 }
-fetch('data.json').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(d=>{rawData=d.matches||[];flatMatches=rawData.flatMap(g=>g.items);currentDate=TODAY;render('all',TODAY);const info=document.getElementById('sync-info');if(info&&d.lastUpdated){const dt=new Date(d.lastUpdated);info.textContent='同步来源: '+(d.source||'本地')+' | 上次更新: '+dt.toLocaleString('zh-CN');}}).catch(e=>{document.getElementById('main').innerHTML='<div class="error">❌ 数据加载失败: '+e.message+'</div>';console.error(e);});
+fetch('data.json?v='+Date.now()).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(d=>{rawData=d.matches||[];flatMatches=rawData.flatMap(g=>g.items);currentDate=TODAY;render('all',TODAY);const info=document.getElementById('sync-info');if(info&&d.lastUpdated){const dt=new Date(d.lastUpdated);info.textContent='同步来源: '+(d.source||'本地')+' | 上次更新: '+dt.toLocaleString('zh-CN');}}).catch(e=>{document.getElementById('main').innerHTML='<div class="error">❌ 数据加载失败: '+e.message+'</div>';console.error(e);});
 </script>
 </body>
 </html>
